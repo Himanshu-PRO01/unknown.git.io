@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /settings.html
+Sitemap: https://yourdomain.com/sitemap.xml
