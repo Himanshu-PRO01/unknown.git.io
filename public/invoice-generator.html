@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free GST Invoice Generator - Make a PDF invoice in a minute</title>
+<meta name="description" content="Free online invoice generator with GST support. Add CGST, SGST or IGST, choose rupees or dollars, and save your invoice as a PDF. No sign-up.">
+<script>try{var t=localStorage.getItem("tkh_theme");if(t==="auto")t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";else if(t!=="dark")t="light";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","light");}</script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="icon" href="favicon.ico" sizes="48x48"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest"><meta name="theme-color" content="#0F8B6D"><meta property="og:image" content="https://yourdomain.com/og-image.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/site.css">
+<noscript><style>.ad,.skel{display:none!important}.is-loading .real{display:block!important}</style></noscript>
+
+<style>
+:root{--ground:#EEF2F0;--ink:#10231F;--muted:#4B625C;--line:#CBD8D3;--accent:#0F8B6D;--paper:#fff}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Manrope',system-ui,sans-serif;background:var(--ground);color:var(--ink);line-height:1.5}
+a{color:inherit}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{padding:20px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;text-decoration:none}
+.intro{padding:40px 0 20px}
+.intro h1{font-size:clamp(28px,5vw,44px);line-height:1.1;max-width:720px}
+.intro p{color:var(--muted);max-width:620px;margin:10px 0 0;font-size:18px}
+.ad{width:100%;max-width:728px;min-height:90px;margin:16px auto;border:2px dashed #9DB5AC;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#6B8279;font-size:14px}
+.grid{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:24px;align-items:start}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+form{background:var(--card);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:14px}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+legend{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;margin-bottom:6px;padding:0}
+label{display:flex;flex-direction:column;gap:4px;font-size:14px;font-weight:500}
+input,select,textarea{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);width:100%}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:3px solid #9AD8C6;outline-offset:1px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.check{flex-direction:row;align-items:center;gap:8px}
+.check input{width:auto}
+.row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:10px;border:1px solid var(--line);border-radius:10px}
+.row .d{grid-column:1/-1}
+.row .x{grid-column:1/-1;justify-self:end}
+button{font:inherit;font-weight:700;border:0;border-radius:10px;padding:12px 18px;cursor:pointer}
+.primary{background:var(--accent);color:#fff}
+.ghost{background:transparent;border:2px solid var(--ink);color:var(--ink)}
+.x{background:none;color:#9A3B2E;padding:4px 8px;font-size:14px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+#invoice{background:var(--paper);border-radius:6px;padding:40px;box-shadow:0 1px 3px rgba(16,35,31,.15);min-height:600px;overflow-x:auto}
+.top{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.top h2{font-size:30px}
+.meta{font-size:14px;text-align:right;color:var(--muted)}
+.parties{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;font-size:14px}
+.parties b{display:block;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:2px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:480px}
+th{text-align:left;border-bottom:2px solid var(--ink);padding:8px 6px;font-weight:700}
+td{padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.n{text-align:right;white-space:nowrap}
+.tot{margin:18px 0 0 auto;width:min(320px,100%);font-size:15px}
+.tot div{display:flex;justify-content:space-between;padding:4px 0}
+.tot .g{border-top:2px solid var(--ink);margin-top:6px;padding-top:8px;font-weight:700;font-size:18px}
+.words,.notes{font-size:14px;margin-top:18px}
+.mark{margin-top:36px;font-size:12px;color:var(--muted)}
+article{background:var(--card);border-radius:16px;padding:28px;margin:32px 0}
+article h2{font-size:26px;margin-bottom:10px}
+article h3{font-size:19px;margin:18px 0 6px}
+article p,article li{color:var(--muted);max-width:75ch}
+footer{padding:12px 0 40px;display:flex;gap:20px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+@media print{
+  body{background:var(--card)}
+  header,.intro,.ad,form,article,footer,.noprint{display:none!important}
+  .grid{display:block}
+  #invoice{box-shadow:none;padding:0;min-height:0;overflow:visible}
+}
+form#f,#invoice{border:1px solid var(--line)}.ph{color:#9AA9A4}.row{grid-template-columns:1.2fr .8fr 1fr}.row .g{grid-column:1/3}.row .x{grid-column:3;justify-self:end;align-self:center}</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header noprint"><div class="bar"><a class="brand" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0F8B6D"/><path d="M9 11h14M16 11v12" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>ToolKit Hub</a><div class="hright"><nav aria-label="Main"><a href="tools.html">All tools</a><a href="guides.html">Guides</a><a href="pro.html">Pro</a><a href="about.html">About</a><a class="btn btn-primary navcta" id="navLogin" href="login.html">Log in</a></nav><button type="button" class="menubtn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button></div></div></header><div class="drawer-back noprint" id="drawerBack"></div><aside class="drawer noprint" id="drawer" aria-label="Site menu" aria-hidden="true"><div class="drawer-head"><span>Menu</span><button type="button" class="mclose drawer-close" aria-label="Close menu">&times;</button></div><div class="drawer-body"><label class="sr" for="drawerSearch">Search the menu</label><input id="drawerSearch" type="search" placeholder="Search pages"><p class="drawer-label">Appearance</p><div class="seg" role="group" aria-label="Colour theme"><button type="button" class="segbtn" data-theme-set="light">Light</button><button type="button" class="segbtn" data-theme-set="dark">Dark</button><button type="button" class="segbtn" data-theme-set="auto">Auto</button></div><h3>Account</h3><a href="login.html" id="dLogin">Log in or sign up</a><a href="settings.html">Settings</a><a href="pro.html">Pro plan</a><h3>Find a tool</h3><a href="tools.html">Browse all tools</a><h3>Business tools</h3><a href="invoice-generator.html">GST invoice generator</a><h3>Loan calculators</h3><a href="emi-calculator.html">EMI calculator</a><h3>Home loans</h3><a href="home-loan-emi-calculator.html">Home loan EMI calculator</a><a href="home-loan-30-lakh-emi-calculator.html">30 lakh home loan EMI calculator</a><a href="home-loan-50-lakh-emi-calculator.html">50 lakh home loan EMI calculator</a><h3>Car loans</h3><a href="car-loan-emi-calculator.html">Car loan EMI calculator</a><a href="car-loan-5-lakh-emi-calculator.html">5 lakh car loan EMI calculator</a><a href="car-loan-10-lakh-emi-calculator.html">10 lakh car loan EMI calculator</a><a href="used-car-loan-emi-calculator.html">Used car loan EMI calculator</a><h3>Bike and scooter loans</h3><a href="bike-loan-emi-calculator.html">Bike loan EMI calculator</a><a href="scooter-loan-emi-calculator.html">Scooter loan EMI calculator</a><h3>Personal loans</h3><a href="personal-loan-emi-calculator.html">Personal loan EMI calculator</a><a href="personal-loan-1-lakh-emi-calculator.html">1 lakh personal loan EMI calculator</a><a href="personal-loan-5-lakh-emi-calculator.html">5 lakh personal loan EMI calculator</a><h3>Education loans</h3><a href="education-loan-emi-calculator.html">Education loan EMI calculator</a><a href="education-loan-20-lakh-emi-calculator.html">20 lakh education loan EMI calculator</a><h3>Business loans</h3><a href="business-loan-emi-calculator.html">Business loan EMI calculator</a><h3>More calculators</h3><a href="sip-calculator.html">SIP calculator</a><a href="gst-calculator.html">GST calculator</a><a href="income-tax-calculator.html">Income tax calculator</a><a href="age-calculator.html">Age calculator</a><a href="percentage-calculator.html">Percentage calculator</a><a href="ppf-calculator.html">PPF calculator</a><a href="fd-calculator.html">FD calculator</a><h3>Guides</h3><a href="guides.html">All guides</a><a href="guide-how-emi-is-calculated.html">How is EMI calculated? The formula with an example</a><a href="guide-reduce-loan-emi-and-interest.html">7 ways to reduce your loan EMI and interest</a><a href="guide-gst-invoice-format.html">GST invoice format: what to include, with an example</a><a href="guide-how-sip-works.html">How does a SIP work? Returns, compounding and an example</a><a href="guide-freelance-invoice-checklist.html">How to write a freelance invoice: a checklist</a><h3>Company</h3><a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a><h3>Legal</h3><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="cookies.html">Cookie Policy</a><a href="refund.html">Refund Policy</a><a href="disclaimer.html">Disclaimer</a></div></aside>
+<div class="wrap" id="main">
+
+<div class="intro">
+<h1>Free GST invoice generator</h1>
+<p>Fill in the form, watch your invoice update, then save it as a PDF. Works with rupees, dollars, euros and pounds. Nothing is sent to a server. <a href="settings.html" style="text-decoration:underline">Save your business details</a> to fill them in next time.</p>
+</div>
+<div class="ad"></div>
+
+<div class="grid">
+<form id="f" data-nosubmit>
+<fieldset><legend>Your business</legend>
+<label>Name<input id="sName" autocomplete="organization"></label>
+<label>Address<textarea id="sAddr" rows="2"></textarea></label>
+<label>GSTIN (optional)<input id="sGstin" maxlength="15"></label>
+</fieldset>
+<fieldset><legend>Your client</legend>
+<label>Name<input id="bName"></label>
+<label>Address<textarea id="bAddr" rows="2"></textarea></label>
+<div class="two">
+<label>GSTIN (optional)<input id="bGstin" maxlength="15"></label>
+<label>Place of supply<input id="pos" placeholder="e.g. Karnataka"></label>
+</div>
+</fieldset>
+<fieldset><legend>Invoice details</legend>
+<div class="two">
+<label>Invoice number<input id="invNo" value="INV-001"></label>
+<label>Currency
+<select id="cur"><option value="INR">Rupee (INR)</option><option value="USD">Dollar (USD)</option><option value="EUR">Euro (EUR)</option><option value="GBP">Pound (GBP)</option></select></label>
+<label>Invoice date<input id="invDate" type="date"></label>
+<label>Due date<input id="dueDate" type="date"></label>
+</div>
+<label class="check"><input id="gstOn" type="checkbox" checked> Add GST</label>
+<label id="typeWrap">GST type
+<select id="gstType"><option value="intra">Same state: CGST + SGST</option><option value="inter">Different state: IGST</option></select></label>
+</fieldset>
+<fieldset><legend>Items</legend>
+<div id="rows"></div>
+<div class="actions"><button type="button" class="ghost" id="add">Add item</button></div>
+</fieldset>
+<fieldset><legend>Notes</legend>
+<label>Payment details or terms<textarea id="notes" rows="3" placeholder="Bank details, UPI ID, payment terms"></textarea></label>
+</fieldset>
+<div class="actions"><button type="button" class="primary" id="print">Save as PDF</button></div>
+<small>In the print window, choose "Save as PDF" as the destination.</small>
+<small data-usage="invoice"></small>
+</form>
+
+<section id="invoice" aria-label="Invoice preview"></section>
+</div>
+
+<div class="ad"></div>
+
+<article>
+<h2>How to make a GST invoice</h2>
+<p>A GST invoice is a bill that shows the tax you charged on goods or services. In India, registered businesses use it so the buyer can claim input tax credit. This free tool helps you put the required details in the right place and work out the tax for you.</p>
+<h3>What a GST invoice should include</h3>
+<ul>
+<li>Your name, address and GSTIN, and the client's name and address (plus their GSTIN if they are registered).</li>
+<li>A unique invoice number and the invoice date.</li>
+<li>A description of each item or service, with its HSN or SAC code, quantity and rate.</li>
+<li>The taxable value, the GST rate, and the tax amount.</li>
+<li>The place of supply and the final total.</li>
+</ul>
+<h3>CGST, SGST or IGST?</h3>
+<p>If you and your client are in the same state, the tax is split into two equal parts: CGST and SGST. If you are in different states, you charge a single IGST. Choose the option that fits in the form above. Rules differ for exports and special cases, so check with a chartered accountant if you are unsure.</p>
+</article>
+
+
+</div>
+<footer class="site-footer noprint"><div class="wrap"><div class="fgrid"><div><div class="fbrand">ToolKit Hub</div><p>Free online tools for work and money. Made in India.</p></div><div><h3>Tools</h3><a href="invoice-generator.html">GST invoice generator</a><a href="emi-calculator.html">EMI calculator</a><a href="home-loan-emi-calculator.html">Home loan EMI</a><a href="car-loan-emi-calculator.html">Car loan EMI</a><a href="sip-calculator.html">SIP calculator</a><a href="guides.html">Guides</a></div><div><h3>Company</h3><a href="about.html">About</a><a href="contact.html">Contact</a><a href="pro.html">Pro plan</a><a href="login.html">Log in</a><a href="settings.html">Settings</a></div><div><h3>Legal</h3><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="cookies.html">Cookie Policy</a><a href="refund.html">Refund Policy</a><a href="disclaimer.html">Disclaimer</a></div></div><p class="copy">&copy; 2026 ToolKit Hub. Calculator results are estimates and not financial advice.</p></div></footer>
+<script src="assets/config.js"></script><script src="assets/site.js" defer></script>
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])).replace(/\n/g, '<br>');
+const today = new Date();
+$('invDate').value = today.toISOString().slice(0, 10);
+const due = new Date(today.getTime() + 14 * 86400000);
+$('dueDate').value = due.toISOString().slice(0, 10);
+
+function addRow(vals) {
+  const v = Object.assign({d: '', h: '', q: 1, r: '', g: 18}, vals);
+  const el = document.createElement('div');
+  el.className = 'row';
+  el.innerHTML =
+    '<input class="d" aria-label="Item description" placeholder="Item or service" value="' + esc(v.d).replace(/<br>/g, '') + '">' +
+    '<input class="h" aria-label="HSN or SAC code" placeholder="HSN/SAC" value="' + esc(v.h) + '">' +
+    '<input class="q" aria-label="Quantity" type="number" min="0" step="any" value="' + v.q + '">' +
+    '<input class="r" aria-label="Rate" type="number" min="0" step="any" placeholder="Rate" value="' + v.r + '">' +
+    '<select class="g" aria-label="GST rate">' + [0, 3, 5, 12, 18, 28, 40].map(x => '<option value="' + x + '"' + (x === v.g ? ' selected' : '') + '>' + x + '% GST</option>').join('') + '</select>' +
+    '<button type="button" class="x">Remove item</button>';
+  $('rows').appendChild(el);
+}
+
+function items() {
+  return [...document.querySelectorAll('.row')].map(r => ({
+    d: r.querySelector('.d').value,
+    h: r.querySelector('.h').value,
+    q: parseFloat(r.querySelector('.q').value) || 0,
+    r: parseFloat(r.querySelector('.r').value) || 0,
+    g: parseFloat(r.querySelector('.g').value) || 0
+  }));
+}
+
+function two(x) {
+  const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+  const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+  return x < 20 ? a[x] : b[Math.floor(x / 10)] + (x % 10 ? ' ' + a[x % 10] : '');
+}
+function three(x) {
+  return (x > 99 ? two(Math.floor(x / 100)) + ' Hundred' + (x % 100 ? ' ' : '') : '') + (x % 100 ? two(x % 100) : '');
+}
+function inrWords(n) {
+  const r = Math.floor(n), p = Math.round((n - r) * 100);
+  const cr = Math.floor(r / 1e7), lk = Math.floor(r / 1e5) % 100, th = Math.floor(r / 1e3) % 100, h = r % 1000;
+  let s = '';
+  if (cr) s += three(cr) + ' Crore ';
+  if (lk) s += two(lk) + ' Lakh ';
+  if (th) s += two(th) + ' Thousand ';
+  if (h) s += three(h);
+  s = s.trim() || 'Zero';
+  return 'Rupees ' + s + (p ? ' and ' + two(p) + ' Paise' : '') + ' Only';
+}
+
+function render() {
+  const cur = $('cur').value, gst = $('gstOn').checked, intra = $('gstType').value === 'intra';
+  $('typeWrap').style.display = gst ? '' : 'none';
+  const money = n => new Intl.NumberFormat(cur === 'INR' ? 'en-IN' : 'en-US', {style: 'currency', currency: cur}).format(n);
+  const list = items();
+  let sub = 0, tax = 0;
+  const rows = list.map(i => {
+    const base = i.q * i.r, t = gst ? base * i.g / 100 : 0;
+    sub += base; tax += t;
+    return '<tr><td>' + (esc(i.d) || '<span class="ph">Item or service</span>') + '</td>' + (gst ? '<td>' + esc(i.h) + '</td>' : '') + '<td class="n">' + i.q + '</td><td class="n">' + money(i.r) + '</td>' + (gst ? '<td class="n">' + i.g + '%</td>' : '') + '<td class="n">' + money(base) + '</td></tr>';
+  }).join('');
+  const total = sub + tax;
+  const taxRows = !gst ? '' : intra
+    ? '<div><span>CGST</span><span>' + money(tax / 2) + '</span></div><div><span>SGST</span><span>' + money(tax / 2) + '</span></div>'
+    : '<div><span>IGST</span><span>' + money(tax) + '</span></div>';
+  $('invoice').innerHTML =
+    '<div class="top"><div><h2>' + (gst ? 'Tax invoice' : 'Invoice') + '</h2></div>' +
+    '<div class="meta">No. ' + esc($('invNo').value) + '<br>Date: ' + esc($('invDate').value) + '<br>Due: ' + esc($('dueDate').value) + '</div></div>' +
+    '<div class="parties"><div><b>From</b>' + (esc($('sName').value) || '<span class="ph">Your business name</span>') + '<br>' + esc($('sAddr').value) + ($('sGstin').value ? '<br>GSTIN: ' + esc($('sGstin').value) : '') + '</div>' +
+    '<div><b>Bill to</b>' + (esc($('bName').value) || '<span class="ph">Client name</span>') + '<br>' + esc($('bAddr').value) + ($('bGstin').value ? '<br>GSTIN: ' + esc($('bGstin').value) : '') + ($('pos').value ? '<br>Place of supply: ' + esc($('pos').value) : '') + '</div></div>' +
+    '<table><thead><tr><th>Description</th>' + (gst ? '<th>HSN/SAC</th>' : '') + '<th class="n">Qty</th><th class="n">Rate</th>' + (gst ? '<th class="n">GST</th>' : '') + '<th class="n">Amount</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+    '<div class="tot"><div><span>Subtotal</span><span>' + money(sub) + '</span></div>' + taxRows + '<div class="g"><span>Total</span><span>' + money(total) + '</span></div></div>' +
+    (cur === 'INR' && total > 0 ? '<div class="words"><b>Amount in words:</b> ' + inrWords(total) + '</div>' : '') +
+    ($('notes').value ? '<div class="notes"><b>Notes</b><br>' + esc($('notes').value) + '</div>' : '') +
+    '<div class="mark">Made with ToolKit Hub</div>';
+}
+
+$('add').onclick = () => { addRow(); render(); };
+$('rows').addEventListener('click', e => { if (e.target.classList.contains('x')) { e.target.closest('.row').remove(); render(); } });
+$('f').addEventListener('input', render);
+$('f').addEventListener('change', render);
+$('print').onclick = () => { if (!window.TKH || window.TKH.useFree('invoice')) window.print(); };
+try{var pr=JSON.parse(localStorage.getItem('tkh_profile')||'{}');if(pr.name)$('sName').value=pr.name;if(pr.addr)$('sAddr').value=pr.addr;if(pr.gstin)$('sGstin').value=pr.gstin;if(['INR','USD','EUR','GBP'].indexOf(pr.cur)>-1)$('cur').value=pr.cur;if(pr.notes)$('notes').value=pr.notes;}catch(e){}
+addRow();
+render();
+</script>
+</body>
+</html>

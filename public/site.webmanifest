@@ -1,0 +1,14 @@
+{
+  "name": "ToolKit Hub",
+  "short_name": "ToolKit Hub",
+  "description": "Free online tools for work and money: GST invoices and loan, SIP, FD, PPF and tax calculators.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#EEF2F0",
+  "theme_color": "#0F8B6D",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

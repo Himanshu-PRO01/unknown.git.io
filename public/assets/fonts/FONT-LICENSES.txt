@@ -1,0 +1,4 @@
+Fonts hosted on this site
+- Manrope: Copyright The Manrope Project Authors
+- Space Grotesk: Copyright The Space Grotesk Project Authors
+Both are licensed under the SIL Open Font License, Version 1.1 (https://openfontlicense.org).

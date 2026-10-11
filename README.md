@@ -1,14 +1,20 @@
 # ToolKit Hub
 
-Free online tools for work and money: a GST invoice generator, loan, SIP, FD and PPF calculators, income tax and GST calculators, and guides. It is a static site (plain HTML, CSS and JavaScript), so any static host works.
+Free online tools for work and money: a GST invoice generator, loan, SIP, FD and PPF calculators, income tax and GST calculators, and guides. It is a static site (plain HTML, CSS and JavaScript).
 
-## Set up
-1. Open `assets/config.js` and fill in your email. Add your AdSense publisher ID (`ca-pub-...`) when you have it, and your Supabase URL and anon key for login.
-2. Replace `yourdomain.com` in `sitemap.xml` and `robots.txt` with your real domain.
-3. Replace the placeholder line in `ads.txt` after AdSense approves your site.
+## Folders
+- `public/` is the website. Deploy this folder.
+- `scripts/security-check.py` runs automatic security checks.
+- `.github/workflows/security.yml` runs those checks on every push and every Monday.
+- `docs/SECURITY-AUDIT.md` is the latest security audit.
 
-## Deploy
-Upload this folder to Cloudflare Pages, Netlify or GitHub Pages and connect your domain.
+## Deploy (Cloudflare Pages)
+Connect this repo, set **Build command** to empty and **Build output directory** to `public`. Only the `public` folder is published, so scripts, workflows and docs stay private.
+
+## Before launch
+1. Edit `public/assets/config.js`: your email, then AdSense and Supabase details when you have them.
+2. Replace `yourdomain.com` in `public/sitemap.xml`, `public/robots.txt`, `public/.well-known/security.txt` and `SECURITY.md`.
+3. Run `python3 scripts/security-check.py public` and fix any FAIL lines.
 
 ## Updating tax slabs
-Edit the `TAX` block at the top of `assets/tools.js` when the rules change.
+Edit the `TAX` block at the top of `public/assets/tools.js` when the rules change.
