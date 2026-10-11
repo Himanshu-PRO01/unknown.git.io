@@ -17,7 +17,7 @@ var TAX={
 
 function setText(id,t){var el=$(id);if(el)el.textContent=t;}
 function tween(to,fmt){
-  var el=$('main');if(!el)return;
+  var el=$('mval');if(!el)return;
   cancelAnimationFrame(raf);
   if(reduce||!loaded){shown=to;el.textContent=fmt(to);return;}
   var from=shown,t0=performance.now(),dur=450;
@@ -25,7 +25,7 @@ function tween(to,fmt){
 }
 function donut(p,center){var a=$('arc');if(!a||!loaded)return;a.setAttribute('stroke-dasharray',p.toFixed(1)+' '+(100-p).toFixed(1));setText('ipct',center);}
 function showNum(main,fmt,d){last={main:main,fmt:fmt,d:d};tween(main,fmt);if(d)donut(d.p,d.c);}
-function showText(t){last=null;setText('main',t);}
+function showText(t){last=null;setText('mval',t);}
 function finish(){
   ['result','sched'].forEach(function(id){var el=$(id);if(el){el.classList.remove('is-loading');el.setAttribute('aria-busy','false');}});
   loaded=true;shown=0;

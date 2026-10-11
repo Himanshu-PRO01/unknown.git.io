@@ -94,6 +94,7 @@ if(dir){
     $$('.chip').forEach(function(x){var on=x===ch;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on?'true':'false');});
     applyDir();
   });});
+  var qm=/[?&]q=([^&]*)/.exec(location.search||'');if(qm){try{dir.value=decodeURIComponent(qm[1].replace(/\+/g,' '));}catch(e){}}
   dir.addEventListener('input',applyDir);
   var h=(location.hash||'').replace('#','');var pre=h&&document.querySelector('.chip[data-cat="'+h+'"]');
   if(pre)pre.click();else applyDir();
@@ -245,22 +246,36 @@ if(mb&&dr&&dbk){
 
 /* Light / dark / auto theme */
 var rootEl=document.documentElement;
-function themePref(){return read('tkh_theme');}
+function themePref(){var t=read('tkh_theme');return (t==='dark'||t==='auto')?t:'light';}
 function applyTheme(){
   var t=themePref();
-  if(t!=='light'&&t!=='dark')t=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
+  if(t==='auto')t=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
   rootEl.setAttribute('data-theme',t);
 }
 function markTheme(){
-  var pref=themePref()||'auto';
+  var pref=themePref();
   $$('[data-theme-set]').forEach(function(b){var on=b.getAttribute('data-theme-set')===pref;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on?'true':'false');});
 }
 $$('[data-theme-set]').forEach(function(b){b.addEventListener('click',function(){
-  var v=b.getAttribute('data-theme-set');store('tkh_theme',v==='auto'?null:v);applyTheme();markTheme();
+  var v=b.getAttribute('data-theme-set');store('tkh_theme',v);applyTheme();markTheme();
 });});
 if(window.matchMedia){
-  var mq=matchMedia('(prefers-color-scheme: dark)'),onMq=function(){if(!themePref())applyTheme();};
+  var mq=matchMedia('(prefers-color-scheme: dark)'),onMq=function(){if(themePref()==='auto')applyTheme();};
   if(mq.addEventListener)mq.addEventListener('change',onMq);else if(mq.addListener)mq.addListener(onMq);
 }
 applyTheme();markTheme();
+
+/* Amount hints, for example 30,00,000 (30 lakh) */
+function hintText(n){
+  if(!isFinite(n)||n<=0)return '';
+  var w='',t=function(v){return v.toFixed(2).replace(/\.?0+$/,'');};
+  if(n>=1e7)w=t(n/1e7)+' crore';else if(n>=1e5)w=t(n/1e5)+' lakh';else if(n>=1e3)w=t(n/1e3)+' thousand';
+  return '\u20b9'+Math.round(n).toLocaleString('en-IN')+(w?' ('+w+')':'');
+}
+$$('input[data-hint]').forEach(function(inp){
+  var h=document.createElement('small');h.className='hint';inp.insertAdjacentElement('afterend',h);
+  var r=document.getElementById(inp.id+'R');
+  var upd=function(e){h.textContent=hintText(parseFloat(e&&r&&e.target===r?r.value:inp.value));};
+  inp.addEventListener('input',upd);if(r)r.addEventListener('input',upd);upd();
+});
 })();

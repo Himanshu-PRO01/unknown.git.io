@@ -3,7 +3,7 @@ var C=window.TKH_CONFIG||{};
 function $(s){return document.querySelector(s)}
 var msgEl=$('#authMsg');
 function msg(t,bad){msgEl.textContent=t;msgEl.style.color=bad?'#9A3B2E':'';}
-var LABEL={google:'Google',github:'GitHub',azure:'Microsoft',apple:'Apple',facebook:'Facebook',linkedin_oidc:'LinkedIn',discord:'Discord',twitter:'X'};
+var LABEL={google:'Google',azure:'Microsoft',apple:'Apple',facebook:'Facebook',linkedin_oidc:'LinkedIn',discord:'Discord',twitter:'X'};
 var providers=C.AUTH_PROVIDERS||[];
 var oauth=$('#oauth');
 providers.forEach(function(p){
