@@ -271,3 +271,25 @@ input[type=date]{font:inherit;padding:10px 12px;border:1px solid var(--line);bor
 @media(max-width:560px){.site-header .bar{flex-wrap:nowrap}.navcta{display:none}.hero{padding-top:36px}.cta{padding:28px 22px}}
 @media print{.ph{display:none!important}}
 .quick a{white-space:nowrap}
+
+/* ---------- policy, billing, widget pages ---------- */
+.fgrid{grid-template-columns:2fr 1fr 1fr 1fr 1fr}
+@media(max-width:900px){.fgrid{grid-template-columns:1fr 1fr}}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.plan{border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--card);display:flex;flex-direction:column;gap:10px}
+.plan.hl{border:2px solid var(--accent)}
+.plan h3{font-size:20px}
+.price{font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:700;line-height:1.1}
+.price small{font-size:15px;font-weight:500;color:var(--muted)}
+.tick{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;flex:1}
+.tick li::before{content:"\2713";color:var(--accent-d);font-weight:700;margin-right:8px}
+.tick.big{font-size:17px}
+.demo-wrap{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px;overflow:hidden}
+.demo-frame{width:100%;border:0;border-radius:10px;background:#fff;display:block}
+.bgrid{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:20px;align-items:start}
+@media(max-width:900px){.bgrid{grid-template-columns:1fr}}
+.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;width:100%;background:var(--ground);color:var(--ink)}
+.box h2{font-size:19px;margin-bottom:8px}
+input[type=color]{padding:2px;height:44px;width:100%;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+.hero-one{grid-template-columns:1fr!important;align-items:start}
+.hero-one .demo-wrap{max-width:780px;margin-top:8px}

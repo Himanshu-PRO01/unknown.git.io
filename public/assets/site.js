@@ -48,7 +48,7 @@ function esc(x){return String(x).replace(/[&<>"]/g,function(c){return {'&':'&amp
 var q=$('#toolSearch');
 if(q){
   var box=$('#sugg'),items=[],act=-1;
-  var catName={business:'Business',loans:'Loans',savings:'Savings',tax:'Tax',everyday:'Everyday',guides:'Guide'};
+  var catName={help:'Help',business:'Business',loans:'Loans',savings:'Savings',tax:'Tax',everyday:'Everyday',guides:'Guide'};
   var mark=function(){
     $$('#sugg li').forEach(function(li,i){li.classList.toggle('on',i===act);});
     if(act>=0)q.setAttribute('aria-activedescendant','s'+act);else q.removeAttribute('aria-activedescendant');
@@ -281,4 +281,41 @@ $$('input[data-hint]').forEach(function(inp){
 
 /* Forms that only calculate (no sending) */
 $$('form[data-nosubmit]').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();});});
+
+/* "Get a free demo" buttons: WhatsApp if a number is set, otherwise email */
+$$('[data-demo-link]').forEach(function(a){
+  var msg='Hi, I would like a free demo of the calculator widget with my logo and colours.',w=String(C.WHATSAPP||'').replace(/\D/g,'');
+  if(w.length>=8){a.href='https://wa.me/'+w+'?text='+encodeURIComponent(msg);a.target='_blank';a.rel='noopener noreferrer';}
+  else a.href='mailto:'+C.EMAIL+'?subject='+encodeURIComponent('Free demo request')+'&body='+encodeURIComponent(msg);
+});
+
+/* Helpers for account, billing and support pages */
+function httpsOr(v){try{var u=new URL(v);return u.protocol==='https:'?u.href:'';}catch(e){return '';}}
+$$('[data-mail]').forEach(function(a){a.href='mailto:'+C.EMAIL+'?subject='+encodeURIComponent(a.getAttribute('data-subject')||'Message from the website');});
+$$('[data-wa]').forEach(function(a){var w=String(C.WHATSAPP||'').replace(/\D/g,'');if(w.length>=8){a.href='https://wa.me/'+w;a.target='_blank';a.rel='noopener noreferrer';}else a.hidden=true;});
+var chkM=httpsOr(C.CHECKOUT_MONTHLY),chkY=httpsOr(C.CHECKOUT_YEARLY);
+$$('[data-checkout]').forEach(function(a){var u=a.getAttribute('data-checkout')==='yearly'?chkY:chkM;if(u){a.href=u;a.target='_blank';a.rel='noopener noreferrer';a.textContent=a.getAttribute('data-live-text')||a.textContent;}else a.href=waitlistHref();});
+$$('[data-needs-checkout]').forEach(function(n){n.hidden=!!(chkM||chkY);});
+var portalUrl=httpsOr(C.BILLING_PORTAL_URL);
+$$('[data-portal]').forEach(function(a){if(portalUrl){a.href=portalUrl;a.target='_blank';a.rel='noopener noreferrer';}else a.href='mailto:'+C.EMAIL+'?subject='+encodeURIComponent(a.getAttribute('data-subject')||'Billing request');});
+$$('[data-plan]').forEach(function(e){e.textContent=isPro()?'Pro':'Free';});
+$$('[data-usage-text]').forEach(function(e){e.textContent=isPro()?'Unlimited invoices.':'Invoices saved this month: '+usage().n+' of '+LIMIT+'.';});
+var hs=$('#helpSearch');
+if(hs){hs.addEventListener('input',function(){
+  var t=hs.value.toLowerCase().trim(),n=0;
+  $$('#helpList details').forEach(function(d){var m=!t||d.textContent.toLowerCase().indexOf(t)>-1;d.hidden=!m;if(m)n++;});
+  $$('#helpList h2').forEach(function(h){var s=h.nextElementSibling,any=false;while(s&&s.tagName==='DETAILS'){if(!s.hidden)any=true;s=s.nextElementSibling;}h.hidden=!any;});
+  var none=$('#helpNone');if(none)none.hidden=n>0;
+});}
+var ob=$('#obForm');
+if(ob){
+  var obShow=function(){ob.hidden=true;$('#obDone').hidden=false;store('tkh_onboarded','1');};
+  ob.addEventListener('submit',function(e){
+    e.preventDefault();var p={};try{p=JSON.parse(read(PKEY)||'{}');}catch(x){}
+    p.name=$('#ob_name').value.trim();p.addr=$('#ob_addr').value.trim();p.gstin=$('#ob_gstin').value.trim();
+    var c=$('#ob_cur').value;p.cur=['INR','USD','EUR','GBP'].indexOf(c)>-1?c:'INR';
+    store(PKEY,JSON.stringify(p));obShow();
+  });
+  $('#obSkip').addEventListener('click',function(e){e.preventDefault();obShow();});
+}
 })();

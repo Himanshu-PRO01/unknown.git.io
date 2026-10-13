@@ -50,3 +50,37 @@ No critical or high-risk problems were found. One robustness bug and several har
 - [ ] Test the live site at securityheaders.com.
 - [ ] Revoke any GitHub token that was shared in chat.
 - [ ] Turn on two-step login for GitHub, Cloudflare, your domain registrar and Google.
+
+
+## Round 2: account pages, billing pages and the embeddable widget (12 October 2026)
+Scope added: 27 new pages (policies, sign-in and password pages, billing pages, help) and the calculator widget in `public/widget/`.
+
+### Tests run in a real browser
+| Area | Test | Result |
+|---|---|---|
+| Sign-in links | Script payloads placed in the `#error_description` part of the verify-email and reset-password links | Safe, shown as plain text only |
+| Password pages | Forgot, reset and verify pages without sign-in keys | Show a clear message, no crash |
+| Payment links | A normal `https` payment link and an insecure `http` link set in `config.js` | Only the `https` link is used |
+| Widget settings | Script payloads in name, title, type, colour, calculator, WhatsApp, phone and key | Safe |
+| Widget logo | `javascript:` and `http:` logo addresses | Refused |
+| Widget lead form | A lead address on an unapproved host | Refused, no request sent |
+| Widget builder | Quotes and tags typed into the business name | Escaped in the generated code, nothing ran |
+| Help centre and onboarding | Search and saved details | Work and are safe |
+| Site-wide | All 71 pages loaded; no script errors; no broken links | Pass |
+
+### Fixed in this round
+| # | Finding | Fix |
+|---|---|---|
+| 8 | Log in / Sign up tabs also changed the theme buttons in the menu | Tab code now only touches the sign-in form |
+| 9 | Password rules differed between pages | All password pages now require at least 8 characters |
+
+### The widget: design and risk
+- The widget runs in an iframe on the customer's site. It never reads the host page.
+- Every setting in the widget address is validated: colours must be 6 hex digits, phone and WhatsApp numbers digits only, logos `https` only, and lead addresses must be on an approved list (formspree.io, web3forms.com, getform.io, script.google.com, hooks.zapier.com).
+- All text is added with `textContent`. Nothing from the address is written as HTML.
+- Widget pages are deliberately frameable (`/widget/*` removes `X-Frame-Options` and the enforced CSP). Everything else stays protected. After deploying, check with `curl -I https://yourdomain.com/widget/index.html` that `X-Frame-Options` is absent there and still present on `/index.html`. If the widget will not load on another site, this is the first thing to check.
+- A malicious person could craft a widget link that shows another business's name. The widget has no login and collects only a name and phone number, but the Acceptable Use Policy forbids misuse.
+
+### Still needs your attention
+- The account, billing and payment pages are the front end only. Real accounts need the Supabase keys, real payments need a payment link, and Pro activation is manual until you add a server.
+- The Data Processing Agreement, Acceptable Use Policy and other legal pages are templates. Have a lawyer or CA read them before you rely on them, especially the 72-hour breach notice and the 30-day deletion promises, which you must be able to keep.

@@ -8,6 +8,11 @@
   Content-Security-Policy: base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests
   Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://www.googletagmanager.com https://www.googletagservices.com https://partner.googleadservices.com https://adservice.google.com https://*.google.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://*.supabase.co https://*.google-analytics.com https://*.googlesyndication.com https://*.doubleclick.net; frame-src https://googleads.g.doubleclick.net https://*.googlesyndication.com https://www.google.com; manifest-src 'self'
 
+# The calculator widget is meant to be embedded on other websites, so it may be framed
+/widget/*
+  ! X-Frame-Options
+  ! Content-Security-Policy
+
 # Fonts never change, so browsers can keep them for a year
 /assets/fonts/*
   Cache-Control: public, max-age=31536000, immutable
@@ -16,4 +21,8 @@
 /assets/*.css
   Cache-Control: public, max-age=3600
 /assets/*.js
+  Cache-Control: public, max-age=3600
+/widget/*.js
+  Cache-Control: public, max-age=3600
+/widget/*.css
   Cache-Control: public, max-age=3600
